@@ -1,0 +1,379 @@
+// ── Variables ─────────────────────────────────────────────────────────────────
+$bg-dark:      #0f172a;
+$bg-card:      #1e293b;
+$bg-hover:     #263348;
+$accent:       #6366f1;
+$accent-light: #818cf8;
+$danger:       #ef4444;
+$success:      #22c55e;
+$warning:      #f59e0b;
+$text-primary: #f1f5f9;
+$text-muted:   #94a3b8;
+$border:       #334155;
+$radius:       12px;
+$radius-sm:    8px;
+$transition:   all 0.2s ease;
+
+// ── Reset / Base ──────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: $bg-dark;
+  color: $text-primary;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: $accent-light; text-decoration: none; }
+
+// ── Layout ────────────────────────────────────────────────────────────────────
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: $bg-card;
+  border-right: 1px solid $border;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: $accent-light;
+    padding: 0.5rem 0.75rem 1.5rem;
+    letter-spacing: -0.5px;
+
+    span { color: $text-muted; font-weight: 400; }
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: $radius-sm;
+    color: $text-muted;
+    transition: $transition;
+    font-size: 0.9rem;
+
+    &:hover, &.active {
+      background: $bg-hover;
+      color: $text-primary;
+    }
+
+    &.active { color: $accent-light; font-weight: 600; }
+  }
+
+  .sidebar-section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $text-muted;
+    padding: 0 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid $border;
+  }
+}
+
+.main-content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 2.5rem 3rem;
+  min-height: 100vh;
+  max-width: calc(100% - 260px);
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding: 1.25rem;
+    max-width: 100%;
+  }
+}
+
+// ── Cards ─────────────────────────────────────────────────────────────────────
+.card {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 1.25rem;
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: $radius-sm;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: $transition;
+
+  &-primary {
+    background: $accent;
+    color: #fff;
+    &:hover { background: $accent-light; }
+  }
+  &-ghost {
+    background: transparent;
+    color: $text-muted;
+    &:hover { background: $bg-hover; color: $text-primary; }
+  }
+  &-danger {
+    background: transparent;
+    color: $danger;
+    &:hover { background: rgba($danger, 0.15); }
+  }
+  &-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+}
+
+// ── Form ──────────────────────────────────────────────────────────────────────
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+
+  label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
+.form-control {
+  background: $bg-dark;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  padding: 0.6rem 0.85rem;
+  color: $text-primary;
+  font-size: 0.9rem;
+  transition: $transition;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 3px rgba($accent, 0.15);
+  }
+
+  &.is-invalid {
+    border-color: $danger;
+  }
+}
+
+.invalid-feedback {
+  color: $danger;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+}
+
+// ── Badges ────────────────────────────────────────────────────────────────────
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &-todo        { background: rgba($text-muted, 0.15); color: $text-muted; }
+  &-in-progress { background: rgba($warning, 0.15);    color: $warning; }
+  &-done        { background: rgba($success, 0.15);    color: $success; }
+  &-low         { background: rgba($success, 0.12);    color: $success; }
+  &-medium      { background: rgba($warning, 0.12);    color: $warning; }
+  &-high        { background: rgba($danger, 0.12);     color: $danger; }
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+.modal-box {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  h2 { margin-bottom: 1.5rem; font-size: 1.15rem; }
+}
+
+// ── Task Card ─────────────────────────────────────────────────────────────────
+.task-card {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: $transition;
+
+  &:hover {
+    border-color: $accent;
+    transform: translateY(-1px);
+  }
+
+  .task-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .task-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .task-actions {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+  }
+}
+
+// ── Auth Pages ────────────────────────────────────────────────────────────────
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-dark;
+  padding: 1rem;
+}
+
+.auth-box {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+
+  .auth-logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: $accent-light;
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .auth-subtitle {
+    text-align: center;
+    color: $text-muted;
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+  }
+}
+
+// ── Dashboard Stats ───────────────────────────────────────────────────────────
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 1.5rem;
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: $accent-light;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: $text-muted;
+    margin-top: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ── Page Header ───────────────────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+// ── Dashboard Grid ────────────────────────────────────────────────────────────
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Responsive sidebar toggle ─────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    &.open { transform: translateX(0); }
+  }
+
+  .mobile-menu-btn {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 200;
+    background: $bg-card;
+    border: 1px solid $border;
+    color: $text-primary;
+    padding: 0.5rem;
+    border-radius: $radius-sm;
+    cursor: pointer;
+  }
+}
